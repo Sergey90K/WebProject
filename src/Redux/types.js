@@ -1,0 +1,12 @@
+export const DELETE_USER = 'DELETE_USER';
+export const ADD_USER = 'ADD_USER';
+export const READ_DATA = 'READ_DATA';
+export const BLOCK_USER = 'BLOCK_USER';
+export const MAKE_ADMIN = 'MAKE_ADMIN';
+export const SHOW_COLECTIONS = 'SHOW_COLECTIONS';
+export const CREATE_COLECTIONS = 'CREATE_COLECTIONS';
+export const DELETE_COLECTIONS = 'DELETE_COLECTIONS';
+export const EDIT_COLECTIONS = 'EDIT_COLECTIONS';
+export const LOGIN_USER = 'LOGIN_USER';
+export const LOGOUT_USER = 'LOGOUT_USER';
+export const READ_COLLECTIONS = "READ_COLLECTIONS";
