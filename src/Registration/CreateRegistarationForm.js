@@ -3,6 +3,7 @@ import {useForm} from 'react-hook-form'
 import {addUser} from '../Redux/actionsUser'
 import {useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom';
+import cogoToast from 'cogo-toast';
 
 function CreateRegistartionForm() {
   let navigate = useNavigate();
@@ -17,17 +18,17 @@ function CreateRegistartionForm() {
     })
 
     const onSubmit = (data) =>{
-       // alert(JSON.stringify(data))
-        let b = {admin : false, block : false} 
+        let b = {admin : false, block : false, ID: randomInteger() } 
         let a = Object.assign(data,b)
-        //console.log(a)
         dispatch(addUser(a))
-        reset()
+        reset();
+        cogoToast.success("Success!")
+        setTimeout( ()=>  {navigate('/login') } ,600)
     }
 
     return (
         <div className="container" align="center" > 
-        <h1>Registration form</h1>
+        <h2 className="funny-title section-title"> REGISTRATION PAGE </h2>
         <form onSubmit={handleSubmit(onSubmit)}> 
         <div className="col-9" >
         <label >  <h4 style={ {color:"#004dc9"}}> User name </h4>
@@ -60,13 +61,19 @@ function CreateRegistartionForm() {
               <div style={ {color:"red"} }>
                 {errors?.password && <p>{errors?.password?.message || "Error!"}</p>}
               </div>
+        </div> &nbsp;
+        <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <input type='submit' className="btn btn-primary" disabled={!isValid} value={'Registration'}></input>&nbsp;
+        <button type="button" className="btn btn-danger" onClick={()=>{navigate("/")}}>Cancel</button>
         </div>
-        <input type='submit' disabled={!isValid} value={'Registration'}></input>  
-        <></>
-        <button type="button" className="btn btn-primary" onClick={()=>{navigate("/")}}>Cancel</button>
         </form>
         </div>
     )
+}
+
+function randomInteger() {
+  let rand = 100 + Math.random() * (999999999 - 1);
+  return (Math.round(rand) + Date.now())
 }
 
 export default CreateRegistartionForm

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { DELETE_USER,ADD_USER, READ_DATA, LOGIN_USER, LOGOUT_USER} from "./types";
+import { DELETE_USER,ADD_USER, READ_DATA, LOGIN_USER, LOGOUT_USER, BACK_ACCOUNT, BACK_ACOUNT_N} from "./types";
 
 const urlDataUser = process.env.REACT_APP_URL
 
@@ -127,13 +127,30 @@ function checkingUserSucses(data){
     return{
         type: LOGIN_USER,
         payload: data
-        
     } 
 }
 
 export function logOut(){
     return{
         type: LOGOUT_USER,
-        
     }
 }
+
+export function logInAsUser(data){
+
+    return (dispatch)=>{dispatch(createBackAcount(data))}
+}
+
+function createBackAcount(data){
+    return{
+        type: BACK_ACCOUNT,
+        payload: data
+    }
+}
+
+export function backAccount(){
+ return {
+     type: BACK_ACOUNT_N
+ }
+}
+

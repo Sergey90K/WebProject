@@ -1,8 +1,8 @@
 import React  from "react";
 import { BsZoomIn , BsTrash, BsUnlockFill, BsShieldCheck,BsFillLockFill,BsShieldX} from "react-icons/bs";
 import {connect, useDispatch} from 'react-redux'
-import {deleteUser,readData,addUser,blockUser, makeAdmin} from '../Redux/actionsUser'
-//import { useEffect } from "react";
+import {deleteUser,readData,addUser,blockUser, makeAdmin, logInAsUser} from '../Redux/actionsUser'
+import cogoToast from 'cogo-toast';
 
 function CreatorTable(props){
    const  dispatch = useDispatch();
@@ -31,22 +31,27 @@ function CreateRow(dataUser,dispatch){
 }
 
 function AddButtonAdmin(dataUser,dispatch){
-    if(!dataUser.admin){return(<button type="button" className="btn btn-danger" onClick={()=>{dispatch (makeAdmin(dataUser))}}> Make admin <BsShieldCheck/></button>)
-}else{return(<button type="button" className="btn btn-primary" onClick={()=>{dispatch (makeAdmin(dataUser))}}> Make user <BsShieldX/></button>)}
-    
+    if(!dataUser.admin){return(<button type="button" className="btn btn-danger" onClick={()=>{dispatch (makeAdmin(dataUser)); 
+    cogoToast.success("Success!") }}> Make admin <BsShieldCheck/></button>)
+}else{return(<button type="button" className="btn btn-primary" onClick={()=>{dispatch (makeAdmin(dataUser)); 
+cogoToast.success("Success!") }}> Make user <BsShieldX/></button>)} 
 }
 
 function AddButtonsBlock(dataUser,dispatch){
-    if (!dataUser.block){return (<button type="button" className="btn btn-warning" onClick={()=>{dispatch(blockUser(dataUser))}}> Block <BsUnlockFill/> </button> )}
-    else return (<button type="button" className="btn btn-info" onClick={()=>{dispatch(blockUser(dataUser))}}> Un Block <BsFillLockFill/> </button> )
+    if (!dataUser.block){return (<button type="button" className="btn btn-warning" onClick={()=>{dispatch(blockUser(dataUser));
+    cogoToast.warn("The user has been blocked!") }}> Block <BsUnlockFill/> </button> )}
+    else return (<button type="button" className="btn btn-info" onClick={()=>{dispatch(blockUser(dataUser));
+    cogoToast.warn("The user has been unblocked!") }}> Un Block <BsFillLockFill/> </button> )
 }
 
 function AddButtonInfo(dataUser,dispatch){
-    return(<button type="button" className="btn btn-success"> Info <BsZoomIn/> </button>)
+    return(<button type="button" className="btn btn-success" onClick={()=>{ dispatch(logInAsUser(dataUser));
+   cogoToast.info("You are logged in as a different user.")  }}> Log in as user  <BsZoomIn/> </button>)
 }
 
 function AddButtonDelete(dataUser,dispatch){
-    return(<button type="button" className="btn btn-danger" onClick={()=>{dispatch(deleteUser(dataUser.keyID))}}>Delete <BsTrash/></button>)
+    return(<button type="button" className="btn btn-danger" onClick={()=>{dispatch(deleteUser(dataUser.keyID)); 
+    cogoToast.error("The user has been deleted!") }}>Delete <BsTrash/></button>)
 }
 
 const mapStateToProps = state =>{ return { dataUserF: state.tables.tables } }

@@ -1,14 +1,13 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {connect, useDispatch} from 'react-redux'
-import {readData,logOut} from '../Redux/actionsUser'
+import {logOut} from '../Redux/actionsUser'
 import {useNavigate} from 'react-router-dom'
-import {readCollections} from '../Redux/actionsColections'
 import { BsFillPersonXFill,BsFillPeopleFill } from "react-icons/bs";
 
 function ShowUserInfo(props){
     let navigate = useNavigate();
     const  dispatch = useDispatch();
-    useEffect( () => { dispatch(readData());dispatch(readCollections()) }, []);
+   
 return(<div>
  <ul className="list-group" key={props.dataUser.keyID} >
         { showUser(props.dataUser, dispatch, navigate)}
@@ -24,12 +23,12 @@ function showUser(dataUser, dispatch, navigate){
     return( <> 
             <li className="list-group-item list-group-item-secondary" key={1}> Name: { mas.userName } </li>  
             <li className="list-group-item list-group-item-secondary" key={2}> Email: { mas.email } </li>
-            <li className="list-group-item list-group-item-secondary" key={3}> KEY: { mas.keyID } </li>
-            <li className="list-group-item list-group-item-secondary" key={4}> Password: { mas.password } </li>
-            <li className="list-group-item list-group-item-secondary" key={5}> 
+            <li className="list-group-item list-group-item-secondary" key={3}> ID: { mas.ID } </li>
+            <li className="list-group-item list-group-item-secondary" key={4}> Password: { mas.password } </li> &nbsp;
+            <div className="d-grid gap-2 d-sm-flex justify-content-sm-center"> 
             <button type="button" className="btn btn-danger" onClick={()=>{dispatch(logOut())}}>Logout <BsFillPersonXFill/></button> <></>
             {ChekAdmin(mas,navigate)}
-            </li>
+            </div>
             </>
          ) 
   }

@@ -1,8 +1,10 @@
 import React from "react";
 import {useNavigate} from 'react-router-dom';
 import {connect,useDispatch} from 'react-redux'
-import {logOut} from '../Redux/actionsUser'
-import { BsGlobe, BsSun , BsFillHouseFill, BsFillPersonCheckFill, BsFillPersonPlusFill, BsFillPersonXFill, BsFillPeopleFill, BsFillPersonBadgeFill} from "react-icons/bs";
+import {logOut, backAccount} from '../Redux/actionsUser'
+import cogoToast from 'cogo-toast';
+import { BsGlobe, BsSun , BsFillHouseFill, BsFillPersonCheckFill, BsFillPersonPlusFill, BsFillPersonXFill, BsFillPeopleFill,
+   BsFillPersonBadgeFill, BsTropicalStorm} from "react-icons/bs";
 
 function Headers (props) {
   const  dispatch = useDispatch();
@@ -21,13 +23,13 @@ function Headers (props) {
             <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"> 
             <button type="button" className="btn btn-outline-light me-2" onClick={()=>{alert('The functionality is temporarily unavailable.')}}>
              <BsGlobe/> </button>
-             <button type="button" className="btn btn-outline-light me-2" onClick={()=>{alert('The functionality is temporarily unavailable.')}}>
+             <button type="button" className="btn btn-outline-light me-2" onClick={()=>{  props.func() }}>
              <BsSun/> </button>
              </ul>
             <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-              <input type="search" className="form-control form-control-dark" placeholder="Search..." aria-label="Search"/>
+              <input type="search" className="form-control form-control-dark" placeholder="Search..." aria-label="Search" disabled={true} />
             </form>
-            <div className="text-end"> {ShowButton(props.dataUser, navigate,dispatch)}
+            <div className="text-end"> {ShowButton(props.dataUser, navigate,dispatch, props.backData )}
             </div>
           </div>
         </div>
@@ -35,15 +37,16 @@ function Headers (props) {
     )
 }
 
-function ShowButton(dataUser,navigate,dispatch){
-   if (Object.keys(dataUser).length === 0 ){
+function ShowButton(dataUser,navigate,dispatch, backData){
+   if ( dataUser.length === 0 ){
    return(<>
      <button type="button" className="btn btn-outline-light me-2" onClick={()=>{navigate('/login')}}>Login <BsFillPersonCheckFill/> </button>
               <button type="button" className="btn btn-outline-light me-2" onClick={()=>{navigate('registration')}} >Sign-up <BsFillPersonPlusFill/> </button>
    </>)
  }else {
    return(<>   { Object.entries(dataUser)[0][1].userName  } <> </> 
-     <button type="button" className="btn btn-danger" onClick={()=>{dispatch(logOut())}}>Logout <BsFillPersonXFill/> </button>
+     <button type="button" className="btn btn-outline-light me-2" onClick={()=>{dispatch(logOut())}}>Logout <BsFillPersonXFill/> </button> &nbsp; 
+     {ShowButtonBackAccount(dispatch, backData ) } 
    </>)
  }
 } 
@@ -58,6 +61,13 @@ function ShowButtonMyPage(dataUser,navigate){
   onClick={()=>{navigate('/UserPage')}}> My page <BsFillPersonBadgeFill/> </button>  {ShowButtonAdmin(dataUser,navigate)} </>)}
 }
 
-const mapStateToProps = state =>{ return { dataUser: state.tables.userData } }
+function ShowButtonBackAccount(dispatch, backData){
+  if ( !(Object.keys(backData).length === 0) ){
+    return(<button type="button" className="btn btn-outline-light me-2" 
+    onClick={()=>{ dispatch(backAccount()); cogoToast.success("You have returned to your account!") }}>  Back to your account <BsTropicalStorm/> </button>)
+    }
+}
+
+const mapStateToProps = state =>{ return { dataUser: state.tables.userData, backData: state.tables.backAccount } }
 
 export default connect(mapStateToProps,null) (Headers) ;

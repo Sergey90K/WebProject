@@ -1,8 +1,16 @@
-import { CREATE_COLECTIONS, DELETE_COLECTIONS, EDIT_COLECTIONS, SHOW_COLECTIONS, READ_COLLECTIONS } from "./types";
+import { CREATE_COLECTIONS, DELETE_COLECTIONS, EDIT_COLECTIONS, SHOW_COLECTIONS, READ_COLLECTIONS, SET_TRUE_FLAG,
+    SET_FALSE_FLAG,SET_ID_ITHEM, ADD_NEW_ITHEM, READ_ITHEMS, DELETE_ITHEM, ADD_NEW_TAG,READ_TEGS, DELECTE_TAG, CREATE_NAME_COLLECTIONS,
+    READ_NAME_COLECTIONS, SET_KEY_ITHEMS} from "./types";
 
 const initialState = {
     colections:[],
-    keyID:[]
+    keyID:[],
+    flag:false,
+    collectionsKeyId:'',
+    ithems:[],
+    tags:[],
+    nameCollections: [],
+    keyIdIthems:''
 }
 
 export const colectionsReducer = (state = initialState, action) =>{
@@ -12,6 +20,18 @@ export const colectionsReducer = (state = initialState, action) =>{
         case DELETE_COLECTIONS: return{...state, colections: state.colections.filter(data => data.keyID !== action.payload)}
         case EDIT_COLECTIONS: return{}
         case READ_COLLECTIONS: return{...state, colections:action.payload}
+        case SET_TRUE_FLAG: return{...state, flag:true, collectionsData: action.payload }
+        case SET_FALSE_FLAG: return{...state, flag:false}
+        case SET_ID_ITHEM: return {...state, collectionsKeyId: action.payload}
+        case ADD_NEW_ITHEM: return{...state, ithems: state.ithems.concat(action.payload)}
+        case READ_ITHEMS: return{...state,  ithems: action.payload}
+        case DELETE_ITHEM: return{...state, ithems: state.ithems.filter(data => data.keyID !== action.payload)}
+        case ADD_NEW_TAG: return{...state, tags: state.tags.concat(action.payload)}
+        case READ_TEGS: return{...state, tags: action.payload}
+        case DELECTE_TAG: return{...state, tags:state.tags.filter(data => data.keyID !== action.payload) }
+        case CREATE_NAME_COLLECTIONS: return{...state , nameCollections: state.nameCollections.concat(action.payload)}
+        case  READ_NAME_COLECTIONS: return{...state, nameCollections: action.payload}
+        case SET_KEY_ITHEMS: return{...state, keyIdIthems: action.payload}
         default: return state;
     }
 }

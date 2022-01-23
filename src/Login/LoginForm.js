@@ -3,6 +3,7 @@ import {useForm} from 'react-hook-form'
 import {checkingUser} from '../Redux/actionsUser'
 import { useDispatch } from "react-redux";
 import {useNavigate} from 'react-router-dom';
+import cogoToast from 'cogo-toast'; 
 
 function LoginForm() {
   let navigate = useNavigate();
@@ -17,12 +18,13 @@ function LoginForm() {
     const onSubmit = (data) => {
         dispatch(checkingUser(data));
         reset();
+        cogoToast.loading('Loading your data...') 
         setTimeout( ()=>  {navigate('/userPage') } ,600)
     }
 
   return(
-  <div className="container" align="center">
-    <h1>Login form</h1>  
+  <div className="container" align="center"> 
+    <h2 className="funny-title section-title"> LOGIN PAGE </h2>
     <form onSubmit={handleSubmit(onSubmit)}>
     <div className="col-9" >
         <label> <h4 style={ {color:"#004dc9"}}> Email </h4>
@@ -45,11 +47,12 @@ function LoginForm() {
               <div style={ {color:"red"} }>
                 {errors?.password && <p>{errors?.password?.message || "Error!"}</p>}
               </div>
+        </div>  &nbsp;
+        <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <input type='submit' className="btn btn-primary" disabled={!isValid} value={'Login'}></input>
+    <button type="button" className="btn btn-danger" onClick={()=>{navigate("/")}}>Cancel</button>
         </div>
-    <input type='submit' disabled={!isValid} value={'Login'}></input> <></>
-    <button type="button" className="btn btn-primary" onClick={()=>{navigate("/")}}>Cancel</button>
     </form>
-
   </div>)  
 }
 
