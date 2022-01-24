@@ -12,7 +12,7 @@ function CloudTags(){
     const dispatch = useDispatch();
     if(!(tags.length === 0 )){
       return(<div className='container'>
-      <div class="row">
+      <div className="row">
       <TagCloud
         minSize={15}
         maxSize={35}
@@ -32,8 +32,13 @@ function ShowIthems(ithems,choise,dispatch, navigate ){
    if(choise){let a = ithems.filter(data=> data.tegs === choise)
      if(!(a.length === 0)){
        return(<div className="list-group">
-         {a.map( (str) => { return( <a className="list-group-item list-group-item-action list-group-item-danger" key={str.ID}
-          onClick={()=>{ dispatch(setKeyIthems(str.keyID)) ;  navigate('/ithemsPage') }}> Ithems name  -  {str.name} </a>)    })}
+         {a.map( (str) => { return(
+             <div> 
+            <a className="list-group-item list-group-item-action list-group-item-danger" key={str.ID}
+          onClick={()=>{ dispatch(setKeyIthems(str.keyID)) ;  navigate('/ithemsPage') }}> Ithems name  -  {str.name} 
+          </a> &nbsp;
+          </div>
+          )    })}
        </div>)
      }else{return( <li className ="list-group-item list-group-item-warning" key={1}> Sorry, but no item with this tag has been created yet. </li>)} 
     }

@@ -42,10 +42,13 @@ function ShowIthems(data,dispatch,navigate){
 }
 
 function CreateLi(data,dispatch,navigate){
-return (<a  className="list-group-item list-group-item-action list-group-item-primary" key={data.time}
+return ( <div>
+<a  className="list-group-item list-group-item-action list-group-item-primary" key={data.time}
  onClick={()=>{ dispatch(setKeyIthems(data.keyID)) ;  navigate('/ithemsPage') }}>
     Name Ithem : {data.name} <br/> tag: {data.tegs}
-</a>)
+</a> &nbsp;
+</div>
+)
 }
 
 const mapStateToProps = state =>{ return { ithemsData: state.colections.ithems } }

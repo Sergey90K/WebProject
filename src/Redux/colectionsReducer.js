@@ -1,6 +1,6 @@
 import { CREATE_COLECTIONS, DELETE_COLECTIONS, EDIT_COLECTIONS, SHOW_COLECTIONS, READ_COLLECTIONS, SET_TRUE_FLAG,
     SET_FALSE_FLAG,SET_ID_ITHEM, ADD_NEW_ITHEM, READ_ITHEMS, DELETE_ITHEM, ADD_NEW_TAG,READ_TEGS, DELECTE_TAG, CREATE_NAME_COLLECTIONS,
-    READ_NAME_COLECTIONS, SET_KEY_ITHEMS} from "./types";
+    READ_NAME_COLECTIONS, SET_KEY_ITHEMS,LIKED,READ_LIKE,DISLIKE,CREATE_COMENT,READ_COMMENT} from "./types";
 
 const initialState = {
     colections:[],
@@ -10,7 +10,9 @@ const initialState = {
     ithems:[],
     tags:[],
     nameCollections: [],
-    keyIdIthems:''
+    keyIdIthems:'',
+    like:[],
+    comment:[]
 }
 
 export const colectionsReducer = (state = initialState, action) =>{
@@ -32,6 +34,11 @@ export const colectionsReducer = (state = initialState, action) =>{
         case CREATE_NAME_COLLECTIONS: return{...state , nameCollections: state.nameCollections.concat(action.payload)}
         case  READ_NAME_COLECTIONS: return{...state, nameCollections: action.payload}
         case SET_KEY_ITHEMS: return{...state, keyIdIthems: action.payload}
+        case LIKED: return{...state, like:state.like.concat(action.payload)}
+        case READ_LIKE: return{...state, like:action.payload}
+        case DISLIKE: return{...state, like: state.like.filter(data => data.keyID !== action.payload)}
+        case CREATE_COMENT: return{ ...state, comment: state.comment.concat(action.payload)}
+        case READ_COMMENT: return{...state, comment: action.payload}
         default: return state;
     }
 }

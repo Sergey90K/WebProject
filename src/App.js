@@ -11,7 +11,7 @@ import CreateFormColections from "./User/CreateNewColections";
 import HomePage from "./HomePages/HomePage";
 import CreateIthem from "./CreateNewIthem/CreateIthem";
 import {readData,} from './Redux/actionsUser'
-import {readCollections,readAllIthems,readTags,readNameColections} from './Redux/actionsColections'
+import {readCollections,readAllIthems,readTags,readNameColections,readLike,readComment} from './Redux/actionsColections'
 import IthemPage from "./IthemsPage/IthemsPage";
 import { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, GlobalStyles } from "./theme";
@@ -24,7 +24,7 @@ function App() {
   };
   const  dispatch = useDispatch();
   useEffect( () => { dispatch(readData());dispatch(readCollections()); dispatch(readAllIthems()); dispatch(readTags());
-     dispatch(readNameColections())}, []);
+     dispatch(readNameColections()); dispatch(readLike()); dispatch(readComment()) },[]);
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
     <GlobalStyles />

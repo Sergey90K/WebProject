@@ -1,7 +1,7 @@
 import axios from "axios";
 import { CREATE_COLECTIONS, DELETE_COLECTIONS, EDIT_COLECTIONS, SHOW_COLECTIONS, READ_COLLECTIONS , SET_TRUE_FLAG, 
     SET_FALSE_FLAG, SET_ID_ITHEM, ADD_NEW_ITHEM, READ_ITHEMS, DELETE_ITHEM, ADD_NEW_TAG, READ_TEGS, DELECTE_TAG, CREATE_NAME_COLLECTIONS,
-    READ_NAME_COLECTIONS,SET_KEY_ITHEMS} from "./types";
+    READ_NAME_COLECTIONS,SET_KEY_ITHEMS,LIKED, READ_LIKE,DISLIKE, CREATE_COMENT,READ_COMMENT} from "./types";
 
 const urlDataUser = process.env.REACT_APP_URL
 
@@ -303,5 +303,125 @@ export function setKeyIthems(key){
     return{
         type:SET_KEY_ITHEMS ,
         payload: key
+    }
+}
+
+export function liked(inerData){
+    let a;
+    return (dispatch) => {axios.post(`${urlDataUser}/like.json`,inerData)
+    .then((response)=>{
+        if (!response.statusText){
+               throw new Error(response.statusText) 
+        }return response
+    }) 
+    .then( (response)=> { a =  {...inerData, keyID: response.data.name} })
+    .then( ()=> { dispatch(likedSucces(a))      
+    }) 
+}
+}
+
+function likedSucces(data){
+    return{
+        type: LIKED,
+        payload: data
+    }
+}
+
+export function readLike(){
+    return (dispatch)=>{
+        axios.get(`${urlDataUser}/like.json`)
+        .then(function (response) {
+            if(!response.statusText){
+               throw new Error(response.statusText) 
+            }
+            return response;
+          })
+          .then(response=>{
+            const rez =  Object.keys(response.data).map(key => {
+            return{
+                ...response.data[key],
+                keyID:key
+            } 
+        }); return rez 
+      })
+      .then(masive=>{
+        dispatch(readLikeSucces(masive))})
+    }
+}
+
+function readLikeSucces(data){
+    return{
+        type: READ_LIKE,
+        payload: data
+    }
+}
+
+export function dislike(keyID){
+    return (dispatch) => {
+        axios.delete(`${urlDataUser}/like/${keyID}.json/`)
+        .then(function (response) {
+           if(!response.statusText){
+              throw new Error(response.statusText) 
+           }
+           return response;
+         })
+       .then(dispatch(dislikeSucces(keyID)))
+   }
+}
+
+function dislikeSucces(data){
+    return{
+        type: DISLIKE ,
+        payload: data
+    }
+}
+
+export function createComment(inerData){
+    let a;
+    return (dispatch) => {axios.post(`${urlDataUser}/comment.json`,inerData)
+    .then((response)=>{
+        if (!response.statusText){
+               throw new Error(response.statusText) 
+        }return response
+    }) 
+    .then( (response)=> { a =  {...inerData, keyID: response.data.name} })
+    .then( ()=> { dispatch(createCommentSucces(a))      
+    }) 
+}
+}
+
+function createCommentSucces(data){
+return {
+    type: CREATE_COMENT,
+    payload: data
+}
+}
+
+export function readComment(){
+    return (dispatch)=>{
+        axios.get(`${urlDataUser}/comment.json`)
+        .then(function (response) {
+            if(!response.statusText){
+               throw new Error(response.statusText) 
+            }
+            return response;
+          })
+          .then(response=>{
+            const rez =  Object.keys(response.data).map(key => {
+            return{
+                ...response.data[key],
+                keyID:key
+            } 
+        }); return rez 
+      })
+      .then(masive=>{
+        dispatch(readCommentSucces(masive))})
+    }
+}
+
+function readCommentSucces(data){
+    return{
+        type: READ_COMMENT,
+        payload: data
     }
 }

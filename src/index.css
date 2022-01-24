@@ -7,8 +7,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-
-
 .lds-ring {
   display: inline-block;
   position: relative;
@@ -48,7 +46,8 @@ body {
 
 
 @import "https://fonts.googleapis.com/css?family=Russo+One";
-h2.funny-title{border-top:5px solid #E0DBDE;border-bottom:5px solid #E0DBDE;font-size:70px;text-align:center;margin-top:0px;margin-bottom:5px;text-transform:uppercase;font-family:'Russo One',sans-serif;font-weight:900;letter-spacing:8px}
+h2.funny-title{border-top:5px solid #E0DBDE;border-bottom:5px solid #E0DBDE;font-size:70px;text-align:center;
+  margin-top:0px;margin-bottom:5px;text-transform:uppercase;font-family:'Russo One',sans-serif;font-weight:900;letter-spacing:8px}
 @-webkit-keyframes move-background {
 0%{background-position:-300px 0}
 100%{background-position:300px -300px}
@@ -61,7 +60,12 @@ h2.funny-title{border-top:5px solid #E0DBDE;border-bottom:5px solid #E0DBDE;font
 0%{background-position:-300px 0}
 100%{background-position:300px -300px}
 }
-.section-title{-webkit-animation-play-state:running;-moz-animation-play-state:running;animation-play-state:running;color:transparent;background:url(https://obninsksite.ru/assets/theme/images/blog/square.svg) no-repeat #ECE7EA;background-size:cover;-webkit-text-fill-color:transparent;-moz-text-fill-color:transparent;-webkit-background-clip:text;-moz-background-clip:text;background-clip:text;-webkit-animation:move-background 20s infinite linear alternate;-moz-animation:move-background 20s infinite linear alternate;animation:move-background 20s infinite linear alternate}
+.section-title{-webkit-animation-play-state:running;
+  -moz-animation-play-state:running;animation-play-state:running;color:transparent;
+  background:url(https://obninsksite.ru/assets/theme/images/blog/square.svg) no-repeat #ECE7EA;
+  background-size:cover;-webkit-text-fill-color:transparent;-moz-text-fill-color:transparent;-webkit-background-clip:text;
+  -moz-background-clip:text;background-clip:text;-webkit-animation:move-background 20s infinite linear alternate;
+  -moz-animation:move-background 20s infinite linear alternate;animation:move-background 20s infinite linear alternate}
 
 
 .header-h1 {
@@ -78,3 +82,41 @@ h2.funny-title{border-top:5px solid #E0DBDE;border-bottom:5px solid #E0DBDE;font
   text-transform: uppercase;
   border-radius: 30px;
 }
+
+
+
+
+.two {
+  padding: 50px 20px;
+  text-align: center;
+} 
+.two h1 {
+  font-family: 'Open Sans', sans-serif;
+  position: relative;
+  color: #0509df;
+  font-size: 3em;
+  font-weight: normal;
+  line-height: 1;
+  padding: 10px 0;
+  margin: 0;
+  display: inline-block;
+}
+.two h1:before {
+  content: ""; 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 80%;
+  height: 200%;
+  border-radius: 50%/30%;
+  border: 6px solid #f82003;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+@media (max-width: 420px) {
+  .two h1 {font-size: 2em;}
+}
+
+
+

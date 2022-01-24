@@ -11,7 +11,8 @@ function CreateIthem(props){
   const [ch2, changeCh2] = useState(true)
   const [ch3, changeCh3] = useState(true)
   const dispatch = useDispatch();
-  return(  <>    <h2 className="funny-title section-title"> CREATION ITHEM PAGE </h2>
+  return(  <>   
+   <h2 className="funny-title section-title"> CREATION ITHEM PAGE </h2>
   <div className="col-6  mx-auto"  > 
    <div className="input-group mb-3">
   <div className="input-group-text">

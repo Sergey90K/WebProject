@@ -63,7 +63,7 @@ function sortedCollections(data,ithems){
 }
 
 function ShowColections(data,changeChoise,choise){
-    return(<div className="list-group">
+    return(<div className="list-group"> 
         { data.map(collections=>{
            return CreateLi(collections,changeChoise,choise)   })  
         }
@@ -71,18 +71,29 @@ function ShowColections(data,changeChoise,choise){
 }
 
 function CreateLi(data,changeChoise,choise){
-    return (<a  class="list-group-item list-group-item-action list-group-item-dark"   key={data.ID}  
+    return (<div>
+    <a  className="list-group-item list-group-item-action list-group-item-dark"   key={data.ID}  
     onClick={()=>{ if(!choise){changeChoise(data.keyID)}else {changeChoise(false)}    }}>
-        Name Collections : {data.collectionsName}, <br/> Collections theme :{data.collectionsTheme} , <br/>  Number of items:  {data.numberOfIthem}
-    </a>)
+        Name Collections : {data.collectionsName}, <br/> Collections theme :{data.collectionsTheme}  
+        <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        {data.numberOfIthem}
+     </span> 
+    </a> &nbsp; </div>
+    )
 }
 
 function ShowIthems(ithems,choise,dispatch, navigate ){
     if(choise){let a = ithems.filter(data=> data.collectionsKeyId === choise)
       if(!(a.length === 0)){
         return(<div className="list-group">
-          {a.map( (str) => { return( <a className="list-group-item list-group-item-action list-group-item-warning" key={str.ID}
-           onClick={()=>{ dispatch(setKeyIthems(str.keyID)) ;  navigate('/ithemsPage') }}> Ithems name  -  {str.name} </a>)    })}
+          {a.map( (str) => { return( 
+              <div> 
+              <a className="list-group-item list-group-item-action list-group-item-warning" key={str.ID}
+           onClick={()=>{ dispatch(setKeyIthems(str.keyID)) ;  navigate('/ithemsPage') }}> Ithems name  - 
+            {str.name}   
+           </a> &nbsp;      
+           </div>
+           )    })}
         </div>)
       }else{return( <li className ="list-group-item list-group-item-warning" key={1}> Sorry, but no item with this tag has been created yet. </li>)} 
      }
