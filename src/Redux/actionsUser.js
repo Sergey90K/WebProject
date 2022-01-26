@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { DELETE_USER,ADD_USER, READ_DATA, LOGIN_USER, LOGOUT_USER, BACK_ACCOUNT, BACK_ACOUNT_N} from "./types";
+import { DELETE_USER,ADD_USER, READ_DATA, LOGIN_USER, LOGOUT_USER, BACK_ACCOUNT, BACK_ACOUNT_N, SET_THEME_LIGHT, SET_THEME_DARK} from "./types";
 
 const urlDataUser = process.env.REACT_APP_URL
 
@@ -107,16 +107,23 @@ export function checkingUser(data){
             return response;
           })
           .then(response=>{
-             let m =  Object.values(response.data)
+            const rez =  Object.keys(response.data).map(key => {
+                return{
+                    ...response.data[key],
+                    keyID:key
+                } 
+            });
+             let m =  Object.values(rez)
              for (const iterator of m) {
                  if(iterator.email === data.email){
                      if(iterator.password === data.password){
-                        user = iterator
-                        return ;
+                        user = iterator;
+                        return {};
                      }else { flag = true}
                  }else  { flag = true}
              } if(flag){alert("Sorry, but this email or password is not")}
-           }).then ( ()=>{
+           })
+           .then ( ()=>{
                if(!!user){dispatch(checkingUserSucses(user))
                 }
            })
@@ -154,3 +161,60 @@ export function backAccount(){
  }
 }
 
+export function setThemeLight(keyID){
+    return (dispatch)=>{
+        axios.patch(`${urlDataUser}/data/${keyID}.json`,{theme:'light'}, {theme:'dark'})
+        .then(function (response) {
+            if(!response.statusText){
+               throw new Error(response.statusText) 
+            }
+            return response;
+          })
+          .then(response=>{
+            const rez =  Object.keys(response.data).map(key => {
+            return{
+                ...response.data[key],
+                keyID:key
+            } 
+        }); return rez 
+      })
+      .then(()=>{
+        dispatch(setThemeLightSuccess())
+    })
+    }
+}
+
+function setThemeLightSuccess(){
+return{
+    type: SET_THEME_LIGHT
+}
+}
+
+export function setThemeDark(keyID){
+    return (dispatch)=>{
+        axios.patch(`${urlDataUser}/data/${keyID}.json`,{theme:'dark'}, {theme:'light'})
+        .then(function (response) {
+            if(!response.statusText){
+               throw new Error(response.statusText) 
+            }
+            return response;
+          })
+          .then(response=>{
+            const rez =  Object.keys(response.data).map(key => {
+            return{
+                ...response.data[key],
+                keyID:key
+            } 
+        }); return rez 
+      })
+      .then(()=>{
+        dispatch(setThemeDarktSuccess())
+    })
+    }
+}
+
+function setThemeDarktSuccess(){
+    return{
+        type: SET_THEME_DARK
+    }
+}

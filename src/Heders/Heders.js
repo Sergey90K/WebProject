@@ -1,7 +1,7 @@
 import React from "react";
 import {useNavigate} from 'react-router-dom';
 import {connect,useDispatch} from 'react-redux'
-import {logOut, backAccount} from '../Redux/actionsUser'
+import {logOut, backAccount,setThemeLight,setThemeDark} from '../Redux/actionsUser'
 import cogoToast from 'cogo-toast';
 import { BsGlobe, BsSun , BsFillHouseFill, BsFillPersonCheckFill, BsFillPersonPlusFill, BsFillPersonXFill, BsFillPeopleFill,
    BsFillPersonBadgeFill, BsTropicalStorm} from "react-icons/bs";
@@ -23,7 +23,7 @@ function Headers (props) {
             <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"> 
             <button type="button" className="btn btn-outline-light me-2" onClick={()=>{alert('The functionality is temporarily unavailable.')}}>
              <BsGlobe/> </button>
-             <button type="button" className="btn btn-outline-light me-2" onClick={()=>{  props.func() }}>
+             <button type="button" className="btn btn-outline-light me-2" onClick={()=>{ changeTheme(props.dataUser,props.func,dispatch)    /*props.func()*/ }}>
              <BsSun/> </button>
              </ul>
             <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -66,6 +66,12 @@ function ShowButtonBackAccount(dispatch, backData){
     return(<button type="button" className="btn btn-outline-light me-2" 
     onClick={()=>{ dispatch(backAccount()); cogoToast.success("You have returned to your account!") }}>  Back to your account <BsTropicalStorm/> </button>)
     }
+}
+
+function changeTheme(dataUser,func,dispatch){
+if (dataUser.length === 0){ func() 
+}else if(dataUser[0].theme === "dark"){ dispatch(setThemeLight(dataUser[0].keyID))
+}else{    dispatch(setThemeDark(dataUser[0].keyID))        }
 }
 
 const mapStateToProps = state =>{ return { dataUser: state.tables.userData, backData: state.tables.backAccount } }

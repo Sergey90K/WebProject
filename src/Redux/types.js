@@ -29,3 +29,5 @@ export const READ_LIKE = 'READ_LIKE';
 export const DISLIKE = 'DISLIKE';
 export const CREATE_COMENT = 'CREATE_COMENT';
 export const READ_COMMENT = 'READ_COMMENT';
+export const SET_THEME_LIGHT = 'SET_THEME_LIGHT';
+export const SET_THEME_DARK = 'SET_THEME_DARK';

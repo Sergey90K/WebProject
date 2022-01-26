@@ -1,5 +1,5 @@
 import React ,{useEffect,useState} from "react";
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {Routes , Route} from 'react-router-dom'
 import Headers from "./Heders/Heders";
 import Footers from "./Footers/Footers";
@@ -16,17 +16,18 @@ import IthemPage from "./IthemsPage/IthemsPage";
 import { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, GlobalStyles } from "./theme";
 
-
 function App() {
+  const  dispatch = useDispatch();
+  useEffect( () => { dispatch(readData());dispatch(readCollections()); dispatch(readAllIthems()); dispatch(readTags());
+     dispatch(readNameColections()); dispatch(readLike()); dispatch(readComment()) },[]);
   const [theme, setTheme] = useState("light");
   const switchTheme = () => {
     theme === "light" ? setTheme("dark") : setTheme("light");
   };
-  const  dispatch = useDispatch();
-  useEffect( () => { dispatch(readData());dispatch(readCollections()); dispatch(readAllIthems()); dispatch(readTags());
-     dispatch(readNameColections()); dispatch(readLike()); dispatch(readComment()) },[]);
+  const userThem = useSelector(state=> state.tables.userData)
+     let themUS = choiseThem(userThem) 
   return (
-    <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+    <ThemeProvider theme={theme === themUS ? lightTheme : darkTheme}>
     <GlobalStyles />
     <div>
     <Headers func = {switchTheme} />
@@ -44,6 +45,13 @@ function App() {
     </div>
     </ThemeProvider>
   );
+}
+
+function choiseThem(dataUser){
+if (dataUser.length === 0 ){ return('light') ;
+}else{
+    return(dataUser[0].theme)
+}
 }
 
 export default App;

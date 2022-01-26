@@ -18,7 +18,7 @@ function CreateRegistartionForm() {
     })
 
     const onSubmit = (data) =>{
-        let b = {admin : false, block : false, ID: randomInteger() } 
+        let b = {admin : false, block : false, ID: randomInteger(), theme:"light" } 
         let a = Object.assign(data,b)
         dispatch(addUser(a))
         reset();
