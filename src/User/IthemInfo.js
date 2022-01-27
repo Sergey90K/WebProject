@@ -2,6 +2,8 @@ import React from "react";
 import { connect,useDispatch } from "react-redux";
 import { BsTrash} from "react-icons/bs";
 import {deleteIthem} from '../Redux/actionsColections'
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 function IthemInfo(props){
     const  dispatch = useDispatch();
@@ -14,8 +16,14 @@ function IthemInfo(props){
 
 function CtrateList(data,dispatch){
      return( <div > <ul className="list-group list-group-flush" key={data.keyID}>
-     {Object.entries(data).map(([key,value])=>{
-        return ( <li className="list-group-item list-group-item-success" key={getRandomInt()}>  {key} : {value.toString()}</li> ) }
+     {Object.entries(data).map(([key,value])=>{ let markdown = value;
+      if(key === "description"){
+            return ( <li className="list-group-item list-group-item-success" key={getRandomInt()}> 
+            {key} :  <ReactMarkdown children={markdown} remarkPlugins={[remarkGfm]} />   </li>    );
+      }else{
+           return ( <li className="list-group-item list-group-item-success" key={getRandomInt()}>  {key} : {value.toString()}</li> )
+      }
+      }
           )   
       }   </ul> &nbsp;
       <div className="d-grid gap-2 d-sm-flex justify-content-sm-center" >

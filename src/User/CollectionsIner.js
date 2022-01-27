@@ -1,5 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
  function CollectionsIner(props){
      return (<div className="container"> 
@@ -24,10 +26,16 @@ return(<>
     }
 
  function createLi(data){
-    const petList = Object.entries(data).map(([key,value])=>{
-        return ( <li className="list-group-item list-group-item-success" key={getRandomInt()}>  {key} : {value.toString()}</li>  );
+    const petList = Object.entries(data).map(([key,value])=>{ let markdown = value;
+        if(key === "Description"){
+            return ( <li className="list-group-item list-group-item-success" key={getRandomInt()}> 
+            {key} :  <ReactMarkdown children={markdown} remarkPlugins={[remarkGfm]} />   </li>    );
+        }else{
+            return ( <li className="list-group-item list-group-item-success" key={getRandomInt()}> 
+            {key} : {value.toString()}   </li>    );
+        }
       })
-      return(<ul>{petList}</ul>)
+      return(<> {petList} </> )
  }
  
  function getRandomInt() {

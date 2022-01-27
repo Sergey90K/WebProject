@@ -48,9 +48,9 @@ function CreateFormColections(props) {
       </div>
       <div className="col-9" >
       <label >  <h5 style={ {color:"#004dc9"}}> Description </h5>
-      <input type="text" className="form-control"  {...register('Description',{required: " Input Description" ,
+      <textarea type="text" className="form-control"  {...register('Description',{required: " Input Description" ,
        minLength:{value:4 , message :"The Description name cannot be less than 4 characters"},
-        maxLength: {value:50, message: " Description cannot be greater than 50 characters"} })}/> 
+        maxLength: {value:150, message: " Description cannot be greater than 150 characters"} })}/> 
       </label>
             <div style={ {color:"red"} }>
               {errors?.Description && <p>{errors?.Description.message || "Error!"}</p>}

@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { DELETE_USER,ADD_USER, READ_DATA, LOGIN_USER, LOGOUT_USER, BACK_ACCOUNT, BACK_ACOUNT_N, SET_THEME_LIGHT, SET_THEME_DARK} from "./types";
+import { DELETE_USER,ADD_USER, READ_DATA, LOGIN_USER, LOGOUT_USER, BACK_ACCOUNT, BACK_ACOUNT_N, SET_THEME_LIGHT, SET_THEME_DARK,
+BLOCK_USER,UN_BLOCK_USER,MAKE_ADMIN, MAKE_USER } from "./types";
 
 const urlDataUser = process.env.REACT_APP_URL
 
@@ -73,8 +74,81 @@ export function addUser(inerDataUser){
 }   
 }
 
-// function blockUserSuccess(dataUser){}
 export function blockUser(dataUser){
+let keyID = (dataUser.keyID);
+let flag ;
+if (dataUser.block){flag = false}else{flag = true}
+return (dispatch)=>{
+    axios.patch(`${urlDataUser}/data/${keyID}.json`,{block:flag})
+    .then(function (response) {
+        if(!response.statusText){
+           throw new Error(response.statusText) 
+        }
+        return response;
+      })
+      .then(response=>{
+        const rez =  Object.keys(response.data).map(key => {
+        return{
+            ...response.data[key],
+            keyID:key
+        } 
+    }); return rez 
+  })
+  .then(()=>{
+    dispatch(blockUserSuccess(dataUser))
+})}}
+
+ function blockUserSuccess(dataUser){
+     if(dataUser.block){
+         return{
+             type: UN_BLOCK_USER,
+             payload:dataUser.ID
+         }
+     }else{
+        return{
+            type: BLOCK_USER,
+            payload: dataUser.ID
+        }
+     }
+ }
+
+ export function makeAdmin(dataUser){
+     let keyID = dataUser.keyID;
+      let flag; 
+    dataUser.admin? flag = false : flag = true;
+    return (dispatch)=>{
+        axios.patch(`${urlDataUser}/data/${keyID}.json`,{admin:flag})
+        .then(function (response) {
+            if(!response.statusText){
+               throw new Error(response.statusText) 
+            }
+            return response;
+          })
+          .then(response=>{
+            const rez =  Object.keys(response.data).map(key => {
+            return{
+                ...response.data[key],
+                keyID:key
+            } 
+        }); return rez 
+      })
+      .then(()=>{
+        dispatch(makeAdminSucces(dataUser))
+    })
+    }
+ }
+
+ function makeAdminSucces(dataUser){
+     if(dataUser.admin){return{
+        type:MAKE_USER,
+        payload: dataUser.ID
+     }}else{return{
+        type: MAKE_ADMIN,
+        payload: dataUser.ID
+     }}
+ }
+
+/* export function blockUsera(dataUser){
     let flag;
     if (dataUser.block){flag = false}
     else {flag = true}
@@ -82,10 +156,9 @@ return (dispatch)=> {//axios.post(`${urlDataUser}/data/${dataUser.keyID}.json/`,
     let a = {...dataUser, block: flag}   
     dispatch( deleteUser(dataUser.keyID))
     dispatch(addUser(a))
-}}
+}} */
 
-//function makeAdminSucces(dataUser){}
-export function makeAdmin(dataUser){
+ /*export function makeAdmin(dataUser){
     let flag; 
     dataUser.admin? flag = false : flag = true
     return ((dispatch)=>{
@@ -93,7 +166,7 @@ export function makeAdmin(dataUser){
         dispatch( deleteUser(dataUser.keyID))
         dispatch(addUser(a))
     })
-}
+}*/
 
 export function checkingUser(data){
     let flag = false;
