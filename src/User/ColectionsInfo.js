@@ -15,67 +15,73 @@ function ShowColections(props){
     const  dispatch = useDispatch();  
     if(!( props.colections.length ===0 )){
         return (<div>
-            <ul className="list-group" key={Date.now()}>
+            <div className="container">
            {MapColections(props.colections,props.dataUser[0].email,dispatch,navigate, flagForm, changeFlag,flagIthems,keyId,changeKey)}
            &nbsp;
-           <div className="d-grid gap-2 d-sm-flex justify-content-sm-center" >{AddNewCollections(navigate)}</div>
-               </ul> 
-            <div  style={{display: 'flex', justifyContent: 'center', margin: '1rem'}}>  
+               </div> 
+            <div className="col justify-content-md-center"     >  
              {ShowInfo(flagForm,dispatch)} </div>
              <div  style={{display: 'flex', justifyContent: 'center', margin: '1rem'}}>  
              {ShowIthems(flagIthems,changeFlag,keyId)} </div>
         </div>) 
     }else{return(
-          <div> <h2> Sorry, but no collections have been created yet. </h2> 
-          <div className="d-grid gap-2 d-sm-flex justify-content-sm-center" >   {AddNewCollections(navigate)}  </div>  
+          <div> <h2> Sorry, but no collections have been created yet. </h2>  
           </div>)}    
 }
 
 function MapColections(colections,userEmail,dispatch,navigate,flag,changeFlag, flagIthems,keyId,changeKey){
     return(
-        <>
+        <div className="row row-cols-auto justify-content-md-center">
             {colections.map(masive =>{     
                 if ( masive.email === userEmail){
                     return CreateList(masive,dispatch,navigate, flag, changeFlag, flagIthems,keyId,changeKey)
                 }
             })}
-        </>
+        </div>
     )
 }
 
 function CreateList(data,dispatch,navigate,flag, changeFlag, flagIthems,keyId,changeKey){
-    return(<><li className="list-group-item list-group-item-success" key={data.keyID}>  { data.collectionsName }<></> {ButtonShowInfo(data,dispatch,flag)} 
-     <></> {ButtonCreateIthem(dispatch,data,navigate)} <></> {ButtonShowIthems(changeFlag,flagIthems,data,keyId,changeKey)} <></> {ButtonDellete(data,dispatch)} </li>  </> )
+    return(<div className="col">
+    <div className="card text-white bg-dark mb-3"> 
+    <div className="card-header">Collections Card</div>
+    <div className="card-body">
+    <h5 className="card-title">Name - { data.collectionsName }</h5>
+    <div className ="d-grid gap-2 d-sm-flex justify-content-sm-center">  {ButtonShowInfo(data,dispatch,flag)}  {ButtonShowIthems(changeFlag,flagIthems,data,keyId,changeKey)} </div> &nbsp;
+    <div className ="d-grid gap-2 d-sm-flex justify-content-sm-center">  {ButtonCreateIthem(dispatch,data,navigate)} {ButtonDellete(data,dispatch)} </div>      
+     </div>
+     </div> 
+     </div> )
 }
 
 function ButtonShowInfo(data, dispatch, flag){
-   if(!flag){ return(<button type="button" className="btn btn-success" onClick={()=>{ dispatch(showColections(data.keyID));
+   if(!flag){ return(<button type="button" className="btn btn-outline-light me-2" onClick={()=>{ dispatch(showColections(data.keyID));
     dispatch( setTrueFlag(data) ) } }>Show info <BsZoomIn/></button>)
     }else {
-        return(<button type="button" className="btn btn-success" onClick={()=>{ dispatch(setFalseFlag())}  } > Close info <BsZoomIn/></button>)
+        return(<button type="button" className="btn btn-outline-light me-2" onClick={()=>{ dispatch(setFalseFlag())}  } > Close info <BsZoomIn/></button>)
     }  
 }
 
 function ButtonShowIthems(changeFlag,flagIthems,data,keyId,changeKey){
     if (!flagIthems){
-        return(<button type="button" className="btn btn-primary" onClick={()=>{ changeKey( keyId = data.keyID) ; 
+        return(<button type="button" className="btn btn-outline-light me-2" onClick={()=>{ changeKey( keyId = data.keyID) ; 
             changeFlag(flagIthems= true) }}> Show Ithems <BsFillGearFill/></button>)
     }else{
-        return(<button type="button" className="btn btn-primary" onClick={()=>{changeKey( keyId = false);
+        return(<button type="button" className="btn btn-outline-light me-2" onClick={()=>{changeKey( keyId = false);
             changeFlag(flagIthems = false ) }}> Close Ithems <BsFillGearFill/></button>)
     }
 }
 
 function ButtonDellete(data,dispatch,){
-    return(<button type="button" className="btn btn-danger" onClick={()=>{dispatch(deleteColections(data.keyID));  cogoToast.error("Deleted!") }}> Delete <BsTrash/> </button>)
+    return(<button type="button" className="btn btn-outline-light me-2" onClick={()=>{dispatch(deleteColections(data.keyID));  cogoToast.error("Deleted!") }}> Delete <BsTrash/> </button>)
 }
 
 function AddNewCollections(navigate){
-    return(<button type="button" className="btn btn-warning" onClick={()=>{  navigate("/createColections")}}> Create new collections <BsFillPaletteFill/> </button>)
+    return(<button type="button" className="btn btn-outline-light me-2" onClick={()=>{  navigate("/createColections")}}> Create new collections <BsFillPaletteFill/> </button>)
 }
 
 function ButtonCreateIthem(dispatch,dataColections,navigate){
- return(<button type="button" className="btn btn-info" onClick={()=>{dispatch(setKeyIthem( dataColections.keyID) );
+ return(<button type="button" className="btn btn-outline-light me-2" onClick={()=>{dispatch(setKeyIthem( dataColections.keyID) );
   navigate('/createIthem')  }}>Create new Ithem  <BsVectorPen/> </button>)   
 }
  
@@ -83,9 +89,14 @@ function ButtonCreateIthem(dispatch,dataColections,navigate){
      if (flag){  
         return(<div className="conteiner"> 
         <div className="header-h1"><h3>CHOISE INFORMATIONS.</h3> </div>
-        <CollectionsIner/> &nbsp;
+        <div className="row row-cols-auto justify-content-md-center">
+        <div className="col-10">
+        <CollectionsIner/>
+        </div>
+        </div>
+         &nbsp;
         <div className ="d-grid gap-2 d-sm-flex justify-content-sm-center">
-        <button type="button" className="btn btn-danger" onClick={()=>{dispatch(setFalseFlag())}}>Close info <BsXLg/></button>
+        <button type="button" className="btn btn-outline-light me-2" onClick={()=>{dispatch(setFalseFlag())}}>Close info <BsXLg/></button>
         </div>
          </div>) 
      } else{return(<></>)}
@@ -98,7 +109,7 @@ function ButtonCreateIthem(dispatch,dataColections,navigate){
        <IthemInfo keyId = {keyId}/>
        <div className="row"><div className="col" > &nbsp;
         <div className="d-grid gap-2 d-sm-flex justify-content-sm-center" >
-       <button type="button" className="btn btn-danger" onClick={()=>{changeFlag( flag = false)}}>Close info <BsXLg/></button>
+       <button type="button" className="btn btn-outline-light me-2" onClick={()=>{changeFlag( flag = false)}}>Close info <BsXLg/></button>
        </div>  </div> </div>
         </div>) 
     } else{return(<></>)}

@@ -11,10 +11,12 @@ import {readComment} from '../Redux/actionsColections'
     const dispatch = useDispatch();
     const comments = useSelector(state => state.colections.comment)
     // setInterval(() => { dispatch( readComment())}, 10000);
-    return(<>
+    return(<div className="row row-cols-auto justify-content-md-center">
+    <div className="col-7 justify-content-md-center">
         {ShowComment(comments,ithemKeyID)}
         {CreateNewComment(ithemKeyID, user,dispatch)}
-    </>)
+        </div>
+    </div>)
 };
 
 function ShowComment(comment,ithemKeyID){
@@ -35,7 +37,6 @@ function CommentAdd(data){
      <div className="card-header "> Comment   &nbsp;  <span className="badge bg-primary rounded-pill-">  {data.time} </span> 
        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
        <BsFillChatDotsFill/>
-       <span class="visually-hidden"></span>
      </span> 
      </div>
      <div className="card-body">
@@ -55,18 +56,18 @@ function CreateNewComment(ithemKeyID, user, dispatch){
        <div className="card-header">Create new coment
        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
        <BsFillChatDotsFill/>
-       <span class="visually-hidden"></span>
+       <span className="visually-hidden"></span>
      </span> 
        </div>
        <div className="card-body">
          <h5 className="card-title">   
-         <span className="badge bg-primary rounded-pill">  User name </span>    
+         <span className="badge bg-primary rounded-pill">  User  -  {user[0].userName} </span>    
          </h5>
          <div className="input-group">
        <span className="input-group-text">Enter your comment. </span>
        <textarea className="form-control" aria-label="With textarea" id="comment"> </textarea>
        <div> &nbsp;
-       <button type="button" className="btn btn-primary btn-sm" onClick={()=>{ createCommentIN(ithemKeyID,user,dispatch)}}>Create</button>
+       <button type="button" className="btn btn-outline-light me-2" onClick={()=>{ createCommentIN(ithemKeyID,user,dispatch)}}>Create</button>
        </div>
        </div>
          </div>
@@ -77,9 +78,9 @@ function CreateNewComment(ithemKeyID, user, dispatch){
             <div className="container">
         <div className="card text-white bg-secondary mb-3" >
        <div className="card-header">Create new coment 
-       <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+       <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
        <BsFillChatDotsFill/>
-       <span class="visually-hidden"></span>
+       <span className="visually-hidden"></span>
      </span> </div>
        <div className="card-body">
          <h5 className="card-title">   

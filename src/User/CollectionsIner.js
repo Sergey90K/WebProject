@@ -12,7 +12,7 @@ import remarkGfm from 'remark-gfm';
  function GetData(props){
         let objectColection = props.colections
         const keyCollections = props.keyID
-    return (<ul className="list-group"  key={Date.now()}> {CreateTable(objectColection, keyCollections )} </ul>)
+    return (<div class="row row-cols-auto justify-content-md-center" > {CreateTable(objectColection, keyCollections )} </div>)
 }
 
 function CreateTable(objectColection, keyCollections){
@@ -28,11 +28,17 @@ return(<>
  function createLi(data){
     const petList = Object.entries(data).map(([key,value])=>{ let markdown = value;
         if(key === "Description"){
-            return ( <li className="list-group-item list-group-item-success" key={getRandomInt()}> 
-            {key} :  <ReactMarkdown children={markdown} remarkPlugins={[remarkGfm]} />   </li>    );
+            return (<> <div class="card text-white bg-secondary mb-4" >
+                 <div clasName="card-body"> 
+             <h5 className="card-title">  {key} </h5>
+              <ReactMarkdown children={markdown} remarkPlugins={[remarkGfm]} />  </div> 
+              </div> &nbsp; </>);
         }else{
-            return ( <li className="list-group-item list-group-item-success" key={getRandomInt()}> 
-            {key} : {value.toString()}   </li>    );
+            return (<> <div class="card text-white bg-secondary mb-4" > 
+            <div className="card-body"> 
+             <h5 className="card-title">  {key} </h5>
+             {value.toString()} </div>
+             </div> &nbsp; </> );
         }
       })
       return(<> {petList} </> )

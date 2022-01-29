@@ -15,6 +15,7 @@ import {readCollections,readAllIthems,readTags,readNameColections,readLike,readC
 import IthemPage from "./IthemsPage/IthemsPage";
 import { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme, GlobalStyles } from "./theme";
+import Sidebar from "./Sidebar/Sidebar";
 
 function App() {
   const  dispatch = useDispatch();
@@ -31,6 +32,8 @@ function App() {
     <GlobalStyles />
     <div>
     <Headers func = {switchTheme} />
+    <Sidebar/> 
+    <div className="content">
        <Routes>
       <Route path="/" element= {<HomePage/>} />
       <Route path="registration" element= {<CreateRegistartionForm/>} />
@@ -41,6 +44,7 @@ function App() {
       <Route path="createIthem" element= {<CreateIthem/>}  />
       <Route path="ithemsPage" element= {<IthemPage/>}  />
     </Routes>
+    </div>
     <Footers/>
     </div>
     </ThemeProvider>

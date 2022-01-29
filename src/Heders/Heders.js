@@ -1,10 +1,9 @@
 import React from "react";
 import {useNavigate} from 'react-router-dom';
 import {connect,useDispatch} from 'react-redux'
-import {logOut, backAccount,setThemeLight,setThemeDark} from '../Redux/actionsUser'
+import {setThemeLight,setThemeDark} from '../Redux/actionsUser'
 import cogoToast from 'cogo-toast';
-import { BsGlobe, BsSun , BsFillHouseFill, BsFillPersonCheckFill, BsFillPersonPlusFill, BsFillPersonXFill, BsFillPeopleFill,
-   BsFillPersonBadgeFill, BsTropicalStorm} from "react-icons/bs";
+import { BsGlobe, BsSun , BsFillHouseFill, BsFillPersonCheckFill, BsFillPeopleFill, BsFillPersonBadgeFill,BsSearch} from "react-icons/bs";
 
 function Headers (props) {
   const  dispatch = useDispatch();
@@ -28,8 +27,8 @@ function Headers (props) {
              </ul>
             <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
               <input type="search" className="form-control form-control-dark" placeholder="Search..." aria-label="Search" disabled={true} />
-            </form>
-            <div className="text-end"> {ShowButton(props.dataUser, navigate,dispatch, props.backData )}
+            </form> 
+            <div className="text-end"> {ShowButton( )}
             </div>
           </div>
         </div>
@@ -37,18 +36,10 @@ function Headers (props) {
     )
 }
 
-function ShowButton(dataUser,navigate,dispatch, backData){
-   if ( dataUser.length === 0 ){
+function ShowButton(){
    return(<>
-     <button type="button" className="btn btn-outline-light me-2" onClick={()=>{navigate('/login')}}>Login <BsFillPersonCheckFill/> </button>
-              <button type="button" className="btn btn-outline-light me-2" onClick={()=>{navigate('registration')}} >Sign-up <BsFillPersonPlusFill/> </button>
+     <button type="button" className="btn btn-outline-light me-2" onClick={()=>{alert('sory )) ')}}>Search <BsSearch/> </button>
    </>)
- }else {
-   return(<>   { Object.entries(dataUser)[0][1].userName  } <> </> 
-     <button type="button" className="btn btn-outline-light me-2" onClick={()=>{dispatch(logOut())}}>Logout <BsFillPersonXFill/> </button> &nbsp; 
-     {ShowButtonBackAccount(dispatch, backData ) } 
-   </>)
- }
 } 
 
 function ShowButtonAdmin(data,navigate){
@@ -61,12 +52,12 @@ function ShowButtonMyPage(dataUser,navigate){
   onClick={()=>{navigate('/UserPage')}}> My page <BsFillPersonBadgeFill/> </button>  {ShowButtonAdmin(dataUser,navigate)} </>)}
 }
 
-function ShowButtonBackAccount(dispatch, backData){
+/* function ShowButtonBackAccount(dispatch, backData){
   if ( !(Object.keys(backData).length === 0) ){
     return(<button type="button" className="btn btn-outline-light me-2" 
     onClick={()=>{ dispatch(backAccount()); cogoToast.success("You have returned to your account!") }}>  Back to your account <BsTropicalStorm/> </button>)
     }
-}
+} */
 
 function changeTheme(dataUser,func,dispatch){
 if (dataUser.length === 0){ func() 

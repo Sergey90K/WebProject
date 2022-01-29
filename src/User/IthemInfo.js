@@ -27,7 +27,7 @@ function CtrateList(data,dispatch){
           )   
       }   </ul> &nbsp;
       <div className="d-grid gap-2 d-sm-flex justify-content-sm-center" >
-      <button type="button" className="btn btn-danger" onClick={()=>{ dispatch(deleteIthem(data.keyID)) }}>Delete Ithem  <BsTrash/> </button>
+      <button type="button" className="btn btn-outline-light me-2" onClick={()=>{ dispatch(deleteIthem(data.keyID)) }}>Delete Ithem  <BsTrash/> </button>
        </div>
       </div> )
 }

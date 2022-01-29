@@ -19,7 +19,7 @@ function CreateRegistartionForm() {
 
     const onSubmit = (data) =>{
         let b = {admin : false, block : false, ID: randomInteger(), theme:"light" } 
-        let a = Object.assign(data,b)
+        let a = Object.assign(data,b, {time:new Date().toLocaleString()})
         dispatch(addUser(a))
         reset();
         cogoToast.success("Success!")

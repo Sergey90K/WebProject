@@ -6,7 +6,7 @@ import ShowColections from './ColectionsInfo'
 import {logOut} from '../Redux/actionsUser'
 import cogoToast from 'cogo-toast';
 import {createNewTags,createNewNameCollections} from '../Redux/actionsColections'
-import { BsClipboardPlus,BsClipboardX,BsFileEarmarkExcel,BsFilePlus,BsFileMinus,BsJournalPlus,BsJournalMinus,BsHash} from "react-icons/bs";
+import { BsClipboardPlus,BsClipboardX,BsFileEarmarkExcel,BsFilePlus,BsFileMinus,BsJournalPlus,BsJournalMinus,BsHash, BsFillPaletteFill} from "react-icons/bs";
 
 function UserPage(props){
   const [flag,changeFlag ] = useState(false)
@@ -22,16 +22,16 @@ function UserPage(props){
     <div className="container"> 
      <h2 className="funny-title section-title"> MY PAGE </h2>
           <div className="row">
-         <div className="col-4"><div className="header-h1"><h3>USER INFORMATIONS.</h3> </div>  <ShowUserInfo />   </div>
+        {/* <div className="col-4"><div className="header-h1"><h3>USER INFORMATIONS.</h3> </div>  <ShowUserInfo />   </div> */}
         <div className="col"> <div className="header-h1"><h3>COLLECTION INFORMATIONS.</h3> </div> <ShowColections /> </div>
         </div>
         <div className="row"> 
         <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
-       {ButtonCreateTags(flag, changeFlag)}   {ButtonCreateNewNameCilections(flag2, changeFlag2)}  
+        {AddNewCollections(navigate)}     {ButtonCreateTags(flag, changeFlag)}   {ButtonCreateNewNameCilections(flag2, changeFlag2)}  
        </div>
        <div>&nbsp;</div>
        </div>
-       <div className="row"> 
+       <div className="row row-cols-auto justify-content-md-center"> 
        <div className="col - 6">  { CreateNewTag(flag,changeFlag,dispatch)}   </div>
        <div className="col - 6">   {CreateNewCollections(flag2,changeFlag2,dispatch)} </div>
       
@@ -43,11 +43,11 @@ function UserPage(props){
 function ButtonCreateTags(flag, changeFlag){
   if(!flag){
     return(<div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
-    <button type="button" className="btn btn-primary btn-lg px-4 gap-3" onClick={()=>{changeFlag(true)}}>Create new TAG <BsHash/> </button>
+    <button type="button" className="btn btn-outline-light me-2"  onClick={()=>{changeFlag(true)}}>Create new TAG <BsHash/> </button>
   </div>)
   }else{
     return(<div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
-    <button type="button" className="btn btn-danger btn-lg px-4 gap-3" onClick={()=>{changeFlag(false)}}>Close window <BsFileEarmarkExcel/> </button>
+    <button type="button" className="btn btn-outline-light me-2"  onClick={()=>{changeFlag(false)}}>Close window <BsFileEarmarkExcel/> </button>
   </div>)
   }
 }
@@ -64,8 +64,8 @@ function CreateNewTag(flag,changeFlag,dispatch){
      <input type="text" className="form-control" aria-label="Text input with checkbox" id="name" />
       </div>
       <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
-      <button type="button" className="btn btn-success" onClick={()=>{ createTags(dispatch, changeFlag) }}>Create TAG <BsClipboardPlus/> </button> &nbsp;
-   <button type="button" className="btn btn-danger" onClick={()=>{changeFlag(false)}}>Censel <BsClipboardX/> </button>
+      <button type="button" className="btn btn-outline-light me-2" onClick={()=>{ createTags(dispatch, changeFlag) }}>Create TAG <BsClipboardPlus/> </button> &nbsp;
+   <button type="button" className="btn btn-outline-light me-2" onClick={()=>{changeFlag(false)}}>Censel <BsClipboardX/> </button>
       </div> 
    </div>  
     )
@@ -88,11 +88,11 @@ function randomInteger() {
 function ButtonCreateNewNameCilections(flag2, changeFlag2){
   if(!flag2){
     return(<div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
-    <button type="button" className="btn btn-primary btn-lg px-4 gap-3" onClick={()=>{changeFlag2(true)}}>Start a new topic. <BsFilePlus/> </button>
+    <button type="button" className="btn btn-outline-light me-2"   onClick={()=>{changeFlag2(true)}}>Create a new topic. <BsFilePlus/> </button>
   </div>)
   }else{
     return(<div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
-    <button type="button" className="btn btn-danger btn-lg px-4 gap-3"  onClick={()=>{changeFlag2(false)}}>Close window <BsFileMinus/> </button>
+    <button type="button" className="btn btn-outline-light me-2"  onClick={()=>{changeFlag2(false)}}>Close window <BsFileMinus/> </button>
   </div>)
   }
 }
@@ -109,9 +109,9 @@ function CreateNewCollections(flag2,changeFlag2,dispatch){
      <input type="text" className="form-control" aria-label="Text input with checkbox" id="name" />
       </div>
       <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
-   <button type="button" className="btn btn-success" onClick={()=>{ createNameColections(dispatch, changeFlag2) }}>
+   <button type="button" className="btn btn-outline-light me-2" onClick={()=>{ createNameColections(dispatch, changeFlag2) }}>
    Create new Topic   <BsJournalPlus/> </button> &nbsp;
-   <button type="button" className="btn btn-danger" onClick={()=>{changeFlag2(false)}}>Censel <BsJournalMinus/> </button>
+   <button type="button" className="btn btn-outline-light me-2"  onClick={()=>{changeFlag2(false)}}>Censel <BsJournalMinus/> </button>
    </div>
    </div>
     )
@@ -124,6 +124,10 @@ function createNameColections(dispatch,changeFlag){
    cogoToast.loading("Creating new Name !")
   document.getElementById('name').value = ""
   changeFlag(false)
+}
+
+function AddNewCollections(navigate){
+  return(<button type="button" className="btn btn-outline-light me-2" onClick={()=>{  navigate("/createColections")}}> Create new collections <BsFillPaletteFill/> </button>)
 }
 
 const mapStateToProps = state =>{ return { dataUser: state.tables.userData } }
