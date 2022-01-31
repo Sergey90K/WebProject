@@ -33,6 +33,15 @@ return(<>
              <h5 className="card-title">  {key} </h5>
               <ReactMarkdown children={markdown} remarkPlugins={[remarkGfm]} />  </div> 
               </div> &nbsp; </>);
+        }else if(key === "pictures"){
+            return(<>  <div class="card text-white bg-secondary mb-4" >
+                       <div className="card-body"> 
+                       <h5 className="card-title">  {key} </h5>
+                       <img src={value} alt="Pictures" width={100}></img>
+                       </div>
+                       </div>
+            
+                   </>)    
         }else{
             return (<> <div class="card text-white bg-secondary mb-4" > 
             <div className="card-body"> 

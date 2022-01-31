@@ -1,9 +1,27 @@
 import axios from "axios";
+//import firebase from "firebase/app";
+import { initializeApp } from "firebase/app";
+//import 'firebase/storage'
+import { getStorage , ref, uploadBytes, getDownloadURL} from "firebase/storage";
+
 import { CREATE_COLECTIONS, DELETE_COLECTIONS, EDIT_COLECTIONS, SHOW_COLECTIONS, READ_COLLECTIONS , SET_TRUE_FLAG, 
     SET_FALSE_FLAG, SET_ID_ITHEM, ADD_NEW_ITHEM, READ_ITHEMS, DELETE_ITHEM, ADD_NEW_TAG, READ_TEGS, DELECTE_TAG, CREATE_NAME_COLLECTIONS,
-    READ_NAME_COLECTIONS,SET_KEY_ITHEMS,LIKED, READ_LIKE,DISLIKE, CREATE_COMENT,READ_COMMENT} from "./types";
+    READ_NAME_COLECTIONS,SET_KEY_ITHEMS,LIKED, READ_LIKE,DISLIKE, CREATE_COMENT,READ_COMMENT, UPLOAD_PICTURES} from "./types";
 
 const urlDataUser = process.env.REACT_APP_URL
+const urlDataUserData = process.env.REACT_APP_URL_FILE
+//const firebaseConfig = process.env.REACT_APP_CONFIG
+
+const firebaseConfig = {
+    apiKey: "AIzaSyB4y6jHDcshtia6GyU9R1HfQW2M5eG1ON4",
+    authDomain: "courseproject-c1def.firebaseapp.com",
+    databaseURL: "https://courseproject-c1def-default-rtdb.firebaseio.com",
+    projectId: "courseproject-c1def",
+    storageBucket: "courseproject-c1def.appspot.com",
+    messagingSenderId: "874256840158",
+    appId: "1:874256840158:web:87b15bbb7d2ea8284e594f",
+    measurementId: "G-258568F4SY"
+  };
 
 export function showColections(keyID){
     return{
@@ -424,4 +442,49 @@ function readCommentSucces(data){
         type: READ_COMMENT,
         payload: data
     }
+}
+
+export function uploadFile(form,dataColections){
+    let urlPictures;
+    return (dispatch)=>{
+        const firebase =   initializeApp(firebaseConfig);
+        const storage = getStorage(firebase)
+        const imagesRef =  ref(storage, form.name)          
+        uploadBytes(imagesRef , form)
+        .then( snapshot =>{  // procent count or loader
+         } )
+         .then(()=>{
+            getDownloadURL(ref(storage, form.name))
+            .then((url) => {
+              const xhr = new XMLHttpRequest();
+              xhr.responseType = 'blob';
+              xhr.onload = (event) => {
+                const blob = xhr.response;
+              };
+             // xhr.open('GET', url);
+             // xhr.send();
+               urlPictures = url
+                // Or inserted into an <img> element
+               // const img = document.getElementById('myimg');
+              //  img.setAttribute('src', url);
+            }).then(()=>{
+                let rez = Object.assign(dataColections,{pictures:urlPictures})
+                dispatch(createColections(rez))
+            })
+            .catch((error) => {
+             console.log(error)
+            });
+          
+         })
+         
+    }
+      
+}
+
+function uploadFileSucces(data){
+    console.log(data)
+return{
+    type: UPLOAD_PICTURES,
+    payload: data
+}
 }

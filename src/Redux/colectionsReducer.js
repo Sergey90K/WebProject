@@ -1,6 +1,6 @@
 import { CREATE_COLECTIONS, DELETE_COLECTIONS, EDIT_COLECTIONS, SHOW_COLECTIONS, READ_COLLECTIONS, SET_TRUE_FLAG,
     SET_FALSE_FLAG,SET_ID_ITHEM, ADD_NEW_ITHEM, READ_ITHEMS, DELETE_ITHEM, ADD_NEW_TAG,READ_TEGS, DELECTE_TAG, CREATE_NAME_COLLECTIONS,
-    READ_NAME_COLECTIONS, SET_KEY_ITHEMS,LIKED,READ_LIKE,DISLIKE,CREATE_COMENT,READ_COMMENT} from "./types";
+    READ_NAME_COLECTIONS, SET_KEY_ITHEMS,LIKED,READ_LIKE,DISLIKE,CREATE_COMENT,READ_COMMENT,UPLOAD_PICTURES} from "./types";
 
 const initialState = {
     colections:[],
@@ -12,7 +12,8 @@ const initialState = {
     nameCollections: [],
     keyIdIthems:'',
     like:[],
-    comment:[]
+    comment:[],
+    pictures:[]
 }
 
 export const colectionsReducer = (state = initialState, action) =>{
@@ -39,6 +40,7 @@ export const colectionsReducer = (state = initialState, action) =>{
         case DISLIKE: return{...state, like: state.like.filter(data => data.keyID !== action.payload)}
         case CREATE_COMENT: return{ ...state, comment: state.comment.concat(action.payload)}
         case READ_COMMENT: return{...state, comment: action.payload}
+        case UPLOAD_PICTURES: return{...state, pictures: state.pictures.concat(action.payload)}
         default: return state;
     }
 }
