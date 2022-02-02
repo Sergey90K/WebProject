@@ -12,7 +12,7 @@ import remarkGfm from 'remark-gfm';
  function GetData(props){
         let objectColection = props.colections
         const keyCollections = props.keyID
-    return (<div class="row row-cols-auto justify-content-md-center" > {CreateTable(objectColection, keyCollections )} </div>)
+    return (<div className="row row-cols-auto justify-content-md-center" > {CreateTable(objectColection, keyCollections )} </div>)
 }
 
 function CreateTable(objectColection, keyCollections){

@@ -8,7 +8,7 @@ function RecentlyIthems(props){
     let navigate = useNavigate();
     if(! (props.ithemsData.length === 0) ){
         let sortedIthems = sortIthems(props.ithemsData);
-        return(<div className="list-group">
+        return(<div >
         {ShowIthems(sortedIthems,dispatch,navigate)} 
         </div>)
     }else {return(<div> <h2> Sorry, but no ithems have been created yet. </h2> </div>)}
@@ -43,7 +43,7 @@ function ShowIthems(data,dispatch,navigate){
 
 function CreateLi(data,dispatch,navigate){
 return ( <div>
-<a  className="list-group-item list-group-item-action list-group-item-primary" key={data.time}
+<a  className="list-group-item list-group-item-action list-group-item-primary" key={data.ID}
  onClick={()=>{ dispatch(setKeyIthems(data.keyID)) ;  navigate('/ithemsPage') }}>
     Name Ithem : {data.name} <br/> tag: {data.tegs}
 </a> &nbsp;

@@ -1,12 +1,11 @@
 import axios from "axios";
-//import firebase from "firebase/app";
 import { initializeApp } from "firebase/app";
-//import 'firebase/storage'
 import { getStorage , ref, uploadBytes, getDownloadURL} from "firebase/storage";
 
 import { CREATE_COLECTIONS, DELETE_COLECTIONS, EDIT_COLECTIONS, SHOW_COLECTIONS, READ_COLLECTIONS , SET_TRUE_FLAG, 
     SET_FALSE_FLAG, SET_ID_ITHEM, ADD_NEW_ITHEM, READ_ITHEMS, DELETE_ITHEM, ADD_NEW_TAG, READ_TEGS, DELECTE_TAG, CREATE_NAME_COLLECTIONS,
-    READ_NAME_COLECTIONS,SET_KEY_ITHEMS,LIKED, READ_LIKE,DISLIKE, CREATE_COMENT,READ_COMMENT, UPLOAD_PICTURES} from "./types";
+    READ_NAME_COLECTIONS,SET_KEY_ITHEMS,LIKED, READ_LIKE,DISLIKE, CREATE_COMENT,READ_COMMENT, UPLOAD_PICTURES, UPLOAD_PICTURES_ITHEM,
+    SEARCH_ITHEM, SEARCH_ITHEM_EMPTY, CLOSE_SEARCH} from "./types";
 
 const urlDataUser = process.env.REACT_APP_URL
 const urlDataUserData = process.env.REACT_APP_URL_FILE
@@ -474,17 +473,55 @@ export function uploadFile(form,dataColections){
             .catch((error) => {
              console.log(error)
             });
-          
-         })
-         
-    }
-      
+         })    
+    }     
 }
 
-function uploadFileSucces(data){
-    console.log(data)
-return{
-    type: UPLOAD_PICTURES,
-    payload: data
+export function uploadFileIthems(form,dataColections){
+    let urlPictures;
+    return (dispatch)=>{
+        const firebase =   initializeApp(firebaseConfig);
+        const storage = getStorage(firebase)
+        const imagesRef =  ref(storage, form.name)          
+        uploadBytes(imagesRef , form)
+        .then( snapshot =>{  // procent count or loader
+         } )
+         .then(()=>{
+            getDownloadURL(ref(storage, form.name))
+            .then((url) => {
+              const xhr = new XMLHttpRequest();
+              xhr.responseType = 'blob';
+              xhr.onload = (event) => {
+                const blob = xhr.response;
+              };
+               urlPictures = url
+            }).then(()=>{
+                let rez = Object.assign(dataColections,{pictures:urlPictures})
+                dispatch(addNewIthem(rez))
+            })
+            .catch((error) => {
+             console.log(error)
+            });
+         })    
+    }      
 }
+
+export function searchIthems(data){
+    if(! (data === '')){
+        return{
+            type: SEARCH_ITHEM,
+            payload:data
+        }
+    }else{
+        return{
+            type: SEARCH_ITHEM_EMPTY
+        }  
+    }
+
 }
+export function closeSearch(){
+    return{
+        type: CLOSE_SEARCH
+    }
+}
+

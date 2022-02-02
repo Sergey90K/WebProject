@@ -19,7 +19,8 @@ function LoginForm() {
         dispatch(checkingUser(data));
         reset();
         cogoToast.loading('Loading your data...') 
-        setTimeout( ()=>  {navigate('/userPage') } ,600)
+       // setTimeout( ()=>  {navigate('/userPage') } ,600)
+       navigate('/')
     }
 
   return(

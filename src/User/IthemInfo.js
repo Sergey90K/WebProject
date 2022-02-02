@@ -8,27 +8,50 @@ import remarkGfm from 'remark-gfm';
 function IthemInfo(props){
     const  dispatch = useDispatch();
    if(! (props.ithems.length === 0 )){
-    return(<div className="d-flex gap-2 w-100 justify-content-between"> 
+    return(<div className="row row-cols-auto justify-content-md-center"> 
     {props.ithems.map((data)=>{ if(data.collectionsKeyId === props.keyId){ return(<> {CtrateList(data,dispatch)} </>) } })}
     </div>)   
    }else{ return(<div> <h2> Sorry, but no ithems have been created yet. </h2> </div>)}
 }
 
 function CtrateList(data,dispatch){
-     return( <div > <ul className="list-group list-group-flush" key={data.keyID}>
+     return( <div className="container" >
+      <div className="row row-cols-auto justify-content-md-center">
      {Object.entries(data).map(([key,value])=>{ let markdown = value;
       if(key === "description"){
-            return ( <li className="list-group-item list-group-item-success" key={getRandomInt()}> 
-            {key} :  <ReactMarkdown children={markdown} remarkPlugins={[remarkGfm]} />   </li>    );
+            return ( <div class="card text-white bg-secondary mb-3">
+                    <div class="card-header">key</div>
+                     <div class="card-body">
+                   <h5 class="card-title">   <ReactMarkdown children={markdown} remarkPlugins={[remarkGfm]} />   </h5>
+                 <p class="card-text"></p>
+                    </div> 
+                    </div> )
+      }else if(key === "pictures") {
+        return ( <div class="card text-white bg-secondary mb-3">
+                    <div class="card-header">key</div>
+                     <div class="card-body">
+                   <h5 class="card-title">   
+                   <img src={value} alt="Pictures" width={100}></img>
+                      </h5>
+                 <p class="card-text"></p>
+                    </div> 
+                    </div> )
       }else{
-           return ( <li className="list-group-item list-group-item-success" key={getRandomInt()}>  {key} : {value.toString()}</li> )
-      }
+        return (<div class="card text-white bg-secondary mb-3">
+                     <div class="card-header">{key}</div>
+                     <div class="card-body">
+                      <h5 class="card-title">   {value}   </h5>
+                     <p class="card-text"></p>
+                    </div> 
+                    </div>
+                  )
+             }
       }
           )   
-      }   </ul> &nbsp;
+      }   </div> &nbsp;
       <div className="d-grid gap-2 d-sm-flex justify-content-sm-center" >
       <button type="button" className="btn btn-outline-light me-2" onClick={()=>{ dispatch(deleteIthem(data.keyID)) }}>Delete Ithem  <BsTrash/> </button>
-       </div>
+       </div> &nbsp;
       </div> )
 }
 

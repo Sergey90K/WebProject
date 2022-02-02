@@ -1,9 +1,12 @@
 import React , { useState } from "react";
 import { connect, useDispatch , useSelector} from "react-redux";
-import {addNewIthem, chandesTag} from '../Redux/actionsColections'
+import {addNewIthem, chandesTag,uploadFileIthems} from '../Redux/actionsColections'
 import {useNavigate} from 'react-router-dom'
 import cogoToast from 'cogo-toast';
+import { FileUploader } from "react-drag-drop-files";
 
+const fileTypes = ["JPG", "PNG", "GIF"];
+let pictures;
 function CreateIthem(props){
   let tags = useSelector(state=>state.colections.tags)
   let user = useSelector(state=>state.tables.userData)
@@ -64,6 +67,11 @@ function CreateIthem(props){
   <input type="text" className="form-control" aria-label="Text input with checkbox" id="kastomValue" disabled={ch4}/>
 </div>
   {TagFild(tags)}
+<div className="input-group mb-3">
+<div className="d-grid gap-2 col-10 mx-auto">
+  {DragDrop()}
+</div>
+</div>
 <div className="d-grid gap-2 col-6 mx-auto">
 <div>
 <button type="button" className="btn btn-success" onClick={()=>{createIthem(ch1,ch2,ch3,ch4, props.collectionsID,dispatch,navigate,tags,user[0].userName);}}>Create ithem</button> &nbsp;
@@ -88,7 +96,7 @@ function createIthem(fild1,fild2,fild3,fild4, collectionsKeyId,dispatch,navigate
     if (!!f.length && !!g.length ) {if(!fild4) obj = Object.assign(obj, { castom : "name - " + f + ', value - ' + g})}
     obj = Object.assign(obj, {collectionsKeyId:collectionsKeyId}, {time:Date.now()}, {ID : randomInteger()}, {tegs: d},
      { userCreate: user} )
-    dispatch(addNewIthem(obj))
+   if (pictures === undefined){ dispatch(addNewIthem(obj)) }else{ dispatch(uploadFileIthems(pictures,obj)) } 
    let fr =  AddValueTags(tags,d)
    dispatch(chandesTag(fr))
   navigate('/userPage')
@@ -117,6 +125,19 @@ let rez;
      rez =  Object.assign(a, {count: b })
    }  
  }); return rez
+}
+
+function DragDrop() {
+  const [flag,changeFlag ] = useState(false)
+  const [file, setFile] = useState(null);
+  const handleChange = (file) => {
+    setFile(file);
+    changeFlag(true);
+   pictures = file;
+  };
+  return (
+    <FileUploader handleChange={handleChange} name="file" types={fileTypes} disabled ={flag} maxSize = {2}/>
+  );
 }
 
 const  mapStateToProps  = state => {return{ collectionsID: state.colections.collectionsKeyId  }}

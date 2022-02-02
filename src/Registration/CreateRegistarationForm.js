@@ -23,7 +23,8 @@ function CreateRegistartionForm() {
         dispatch(addUser(a))
         reset();
         cogoToast.success("Success!")
-        setTimeout( ()=>  {navigate('/login') } ,600)
+        //setTimeout( ()=>  {navigate('/login') } ,600)
+        navigate('/login');
     }
 
     return (

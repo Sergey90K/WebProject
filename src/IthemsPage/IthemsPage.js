@@ -78,7 +78,7 @@ function addLike(ithem, user){
 }
 
 function MoreInfo(data,flag){
-    if(flag){let rez,rez2,rez3,rez4,rez5;
+    if(flag){let rez,rez2,rez3,rez4,rez5,rez6;
         if(data.description !== undefined){
             let markdown = data.description;
            rez = (  <>
@@ -116,7 +116,17 @@ function MoreInfo(data,flag){
                      <div className="card-body"> <h5 class="card-title">{data.userCreate }</h5>
                       </div> </div> 
                       &nbsp; </> ) }
-         return (<div className="row row-cols-auto justify-content-md-center">{rez}{rez2}{rez3}{rez4}{rez5}</div>)} 
+        if(data.pictures !== undefined){
+            rez6 =(<>
+                <div className="card text-white bg-dark mb-3"> 
+                     <div className="card-header"> User Creator </div> 
+                     <div className="card-body"> <h5 class="card-title">
+                     <img src={data.pictures} alt="Pictures" width={100}></img>
+                     </h5>
+                      </div> </div> 
+                      &nbsp;  </>)  
+        }
+         return (<div className="row row-cols-auto justify-content-md-center">{rez}{rez2}{rez3}{rez4}{rez5}{rez6}</div>)} 
 }
 
 export default IthemPage;
