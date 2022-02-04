@@ -3,6 +3,7 @@ import { DELETE_USER,ADD_USER, READ_DATA, LOGIN_USER, LOGOUT_USER, BACK_ACCOUNT,
 BLOCK_USER,UN_BLOCK_USER,MAKE_ADMIN, MAKE_USER } from "./types";
 
 const urlDataUser = process.env.REACT_APP_URL
+//const urlDataUser = 'https://projectcolections-default-rtdb.europe-west1.firebasedatabase.app'
 
  function deleteUserSeccess(userID){
     return{

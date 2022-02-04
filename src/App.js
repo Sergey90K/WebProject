@@ -50,7 +50,7 @@ function App() {
       <Route path="administratorPage" element= {<AdministaratorPage/>} />
       <Route path="createColections" element= {<CreateFormColections/>} />
       <Route path="createIthem" element= {<CreateIthem/>}  />
-      <Route path="ithemsPage" element= {<IthemPage/>}  />
+      <Route path="ithemsPage" element= {<IthemPage/>}  />   
     </Routes>
     </div>
     <Footers/>

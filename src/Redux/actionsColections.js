@@ -7,19 +7,19 @@ import { CREATE_COLECTIONS, DELETE_COLECTIONS, EDIT_COLECTIONS, SHOW_COLECTIONS,
     READ_NAME_COLECTIONS,SET_KEY_ITHEMS,LIKED, READ_LIKE,DISLIKE, CREATE_COMENT,READ_COMMENT, UPLOAD_PICTURES, UPLOAD_PICTURES_ITHEM,
     SEARCH_ITHEM, SEARCH_ITHEM_EMPTY, CLOSE_SEARCH} from "./types";
 
-const urlDataUser = process.env.REACT_APP_URL
-const urlDataUserData = process.env.REACT_APP_URL_FILE
-//const firebaseConfig = process.env.REACT_APP_CONFIG
-
-const firebaseConfig = {
-    apiKey: "AIzaSyB4y6jHDcshtia6GyU9R1HfQW2M5eG1ON4",
-    authDomain: "courseproject-c1def.firebaseapp.com",
-    databaseURL: "https://courseproject-c1def-default-rtdb.firebaseio.com",
-    projectId: "courseproject-c1def",
-    storageBucket: "courseproject-c1def.appspot.com",
-    messagingSenderId: "874256840158",
-    appId: "1:874256840158:web:87b15bbb7d2ea8284e594f",
-    measurementId: "G-258568F4SY"
+    const urlDataUser = process.env.REACT_APP_URL
+    const urlDataUserData = process.env.REACT_APP_URL_FILE
+    //const firebaseConfig = process.env.REACT_APP_CONFIG
+// const urlDataUserData = 'gs://projectcolections.appspot.com'
+ //const urlDataUser = 'https://projectcolections-default-rtdb.europe-west1.firebasedatabase.app'
+ const firebaseConfig = {
+    apiKey: "AIzaSyByArrDI_UvRl-dutEG8DIEvHOXtYJ0Wss",
+    authDomain: "projectcolections.firebaseapp.com",
+    databaseURL: "https://projectcolections-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "projectcolections",
+    storageBucket: "projectcolections.appspot.com",
+    messagingSenderId: "142002156176",
+    appId: "1:142002156176:web:038367290412a6f2ccde15"
   };
 
 export function showColections(keyID){
