@@ -1,3 +1,5 @@
+#JS, React, Redux, Axios, Bootstrap, Firebase, Grid
+
 Run the command to install the dependency:
 
 ### `npm instal --legacy-peer-deps`
