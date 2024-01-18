@@ -1,3 +1,4 @@
+Educational web project
 #JS, React, Redux, Axios, Bootstrap, Firebase, Grid
 
 Run the command to install the dependency:
